@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: "{{ .Values.fileType.service }}/v1"
+metadata:
+  name: "{{ .Values.appName }}-{{ .Values.fileType.service }}"
+spec:
+  selector:
+    app: "{{ .Values.appName }}-{{ .Values.fileType.deployment }}"
+    tier: {{ .Values.deployment.tier }}
+  type: LoadBalancer
+  ports:
+    - name: be-port
+      protocol: TCP
+      port: 80
+      targetPort: 8080

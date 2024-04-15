@@ -1,0 +1,18 @@
+apiVersion: "{{ .Values.fileType.deployment }}/v1"
+kind: Deployment
+metadata:
+  name: {{ .Values.appName }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: "{{ .Values.appName }}-{{ .Values.fileType.deployment }}"
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: "{{ .Values.appName }}-{{ .Values.fileType.deployment }}"
+        tier: {{ .Values.deployment.tier }}
+    spec:
+      containers:
+        - name: {{ .Values.deployment.image.name }}
+          image: {{ .Values.deployment.image.tag }}
